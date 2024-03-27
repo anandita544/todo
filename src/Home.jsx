@@ -1,9 +1,13 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom'
+import { deleteTodo } from './TodoReducer'
 function Home() {
     const todos = useSelector((state) => state.todos);
-
+    const dispatch = useDispatch();
+    const handleDelete = (id) => {
+        dispatch(deleteTodo({ id: id }))
+    }
     return (
         <div className='container'>
             <h2></h2>
@@ -25,7 +29,7 @@ function Home() {
 
                             <td>
                                 <Link to={`/edit/${todo.id}`} className="btn btn-sm btn-primary">EDIT</Link>
-                                <Link className="btn btn-sm btn-danger">DELETE</Link>
+                                <button onClick={() => handleDelete(todo.id)} className="btn btn-sm btn-danger">DELETE</button>
                             </td>
                         </tr>
                     ))}
