@@ -1,25 +1,25 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { addTodo } from '../redux/todoSlice';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate
+import { useNavigate } from 'react-router-dom';
 
 function CreatePage() {
     const [todoText, setTodoText] = useState('');
     const dispatch = useDispatch();
-    const navigate = useNavigate(); // Use useNavigate hook
+    const navigate = useNavigate();
 
     const handleSubmit = (e) => {
         e.preventDefault();
         dispatch(addTodo({ text: todoText }));
         setTodoText('');
 
-        // Update local storage after adding todo
+
         const newTodo = { id: Date.now(), text: todoText };
         const persistedState = JSON.parse(localStorage.getItem('todos')) || [];
         const updatedState = [...persistedState, newTodo];
         localStorage.setItem('todos', JSON.stringify(updatedState));
 
-        navigate('/'); // Use navigate instead of history.push
+        navigate('/');
     };
 
     return (
